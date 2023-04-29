@@ -1,8 +1,8 @@
+require("dotenv").config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-require("dotenv").config();
-
+const dbconfig = require('./src/dbconfig/dbconfig')
 
 const { API_PORT } = process.env;
 const port = process.env.PORT || API_PORT;
@@ -17,6 +17,7 @@ app.use(cors());
 
 
 // Route which does not match any, For Error handling
+
 app.use((req, res, next) => {
     const error = new Error("Not found");
     error.status = 404;
@@ -33,6 +34,12 @@ app.use((error, req, res, next) => {
     });
 })
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+app.listen(port, async () => {
+    try{
+        await dbconfig(),
+        console.log(`Server running on port ${port}`); 
+    }
+    catch(e){
+        console.log(`error Occured`,e);
+    }
 })
