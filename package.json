@@ -26,5 +26,8 @@
     "nodemon": "^2.0.22",
     "sequelize": "^6.31.0",
     "tedious": "^16.0.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.0"
   }
 }
