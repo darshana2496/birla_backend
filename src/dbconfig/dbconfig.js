@@ -1,4 +1,4 @@
-const { dbname, dbusername, dbpassword, dbhost } = require('../configs/variableconfig');
+const { dbname, dbusername, dbpassword, dbhost } = require('../config/variableconfig');
 
 const Sequelize = require('sequelize').Sequelize;
 
