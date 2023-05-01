@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended: false}))
 app.use('/myapi/v1',userRoute)
 
 // Routes for all api
-
+app.use('/users', require('./src/routes/index'))
 
 // Route which does not match any, For Error handling
 
