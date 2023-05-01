@@ -6,6 +6,7 @@ const sequelize = new Sequelize( dbname , dbusername, dbpassword, {
     dialect: 'mssql',
     host:dbhost,
     logging:false,
+    underscored: true,
   }
     )
 function connectDB(){

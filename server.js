@@ -1,17 +1,26 @@
 require("dotenv").config();
 const express = require('express');
 const bodyParser = require('body-parser');
+
+
 const cors = require('cors');
 const dbconfig = require('./src/dbconfig/dbconfig')
-
+const userRoute = require('./src/routes/allusers_route')
 const { API_PORT } = process.env;
 const port = process.env.PORT || API_PORT;
 
 const app = express(); // creates an express server
 
+app.use(cors({
+    origin: '*',
+    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+  }));
+
+  
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}))
-app.use(cors());
+
+app.use('/myapi/v1',userRoute)
 
 // Routes for all api
 
