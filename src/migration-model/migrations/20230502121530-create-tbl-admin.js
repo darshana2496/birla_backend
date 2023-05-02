@@ -3,28 +3,37 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('tblAdmins', {
-      intAdminId: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      numContact: {
-        type: Sequelize.NUMERIC
+      vcName: {
+        type: Sequelize.STRING
       },
       vcEmail: {
         type: Sequelize.STRING
       },
+      numContact: {
+        type: Sequelize.BIGINT
+      },
+      btIsActive: {
+        type: Sequelize.BOOLEAN
+      },
+      btIsVerified: {
+        type: Sequelize.BOOLEAN
+      },
+      vcCompanyName: {
+        type: Sequelize.STRING
+      },
+      dtVerifiedAt: {
+        type: Sequelize.DATE
+      },
+      vcCompanyLocation: {
+        type: Sequelize.STRING
+      },
       vcUsername: {
-        type: Sequelize.STRING
-      },
-      vcLocation: {
-        type: Sequelize.STRING
-      },
-      ntaddress: {
-        type: Sequelize.DataTypes.TEXT('medium')
-      },
-      vcName: {
         type: Sequelize.STRING
       },
       createdAt: {
