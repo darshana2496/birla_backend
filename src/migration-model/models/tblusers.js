@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   tblUsers.init({
-    intAdminId:DataTypes.INTEGER,
     vcName: DataTypes.STRING,
     vcEmail: DataTypes.STRING,
     vcUsername: DataTypes.STRING,
