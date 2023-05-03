@@ -14,12 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   tblAdmin.init({
-    numContact: DataTypes.NUMERIC,
+    vcName: DataTypes.STRING,
     vcEmail: DataTypes.STRING,
-    vcUsername: DataTypes.STRING,
-    vcLocation: DataTypes.STRING,
-    ntaddress: DataTypes.STRING,
-    vcName: DataTypes.STRING
+    numContact: DataTypes.INTEGER,
+    btIsActive: DataTypes.BOOLEAN,
+    btIsVerified: DataTypes.BOOLEAN,
+    vcCompanyName: DataTypes.STRING,
+    dtVerifiedAt: DataTypes.DATE,
+    vcCompanyLocation: DataTypes.STRING,
+    vcUsername: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'tblAdmin',

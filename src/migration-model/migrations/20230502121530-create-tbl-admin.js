@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('tblAdmins', {
-      intAdminId: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       numContact: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BIGINT
       },
       btIsActive: {
         type: Sequelize.BOOLEAN
@@ -44,8 +44,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    }, {
-      freezeTableName: true
     });
   },
   async down(queryInterface, Sequelize) {
