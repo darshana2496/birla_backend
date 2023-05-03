@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const dbconfig = require('./src/dbconfig/dbconfig')
 const userRoute = require('./src/routes/allusers_route')
+const adminRoute = require('./src/routes/admin_route')
+
 const { API_PORT } = process.env;
 const port = process.env.PORT || API_PORT;
 
@@ -20,10 +22,10 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}))
 
-app.use('/myapi/v1',userRoute)
 
 // Routes for all api
-app.use('/users', require('./src/routes/index'))
+app.use('/myapi/v1',userRoute)
+app.use('/admin', adminRoute)
 
 // Route which does not match any, For Error handling
 
