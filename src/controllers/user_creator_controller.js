@@ -6,6 +6,9 @@ const { where } = require("sequelize");
 const deleteRecordById = require("../commonDBmethods/deleteRecordbyId");
 // const { tblUsers } = require('../migration-model/models')
 const tblUsers = require('../migration-model/models/index')['tblUsers']
+const csv = require('csv-parser');
+const fs = require('fs');
+const fastcsv = require('fast-csv')
 const createUserbyAdmin =async(req,res,next)=>{
     let reqbody = req.body;
     let user = {
@@ -73,6 +76,54 @@ const createUserbyAdmin =async(req,res,next)=>{
     }
 
 }
+const createBulkUser = async (req,res,next)=>{
+    console.log(req.files);
+    const results = [];
+    let reqfile =req.files;
+    let cutomercsv =  req.files.customer
+    // const filePath = cutomercsv.tempFilePath; 
+    
+    if(!reqfile || !req.files.customer){
+        let errors = "Please Select File ,File Not Found" 
+        next(apiError.BadRequest("Error in creating user",'No file found',errors));
+        // return res.status(400).send({ message: "Please Select a File", error: "Can't Find File In Request" })
+    }
+    else{
+        try {
+            
+            
+            fastcsv.parseString(cutomercsv.data.toString(), {
+                headers: true,
+                ignoreEmpty: true
+            })  
+            .on("data", function (data) {
+                //  data['_id'] = new mongoose.Types.ObjectId();
+                let modifiedcolumnname = {
+                    vcName:data.name,
+                    vcEmail:data.email,
+                    vcUsername:data.username,
+                    vcLocation:data.location,
+                    ntaddress:data.address,
+                    nmContact:data.contact,
+                    btisVerify:false,
+                    btisActive:false,
+                    vcparentName:data.parentname,
+                    vcuserType:data.usertype 
+                }
+                results.push(modifiedcolumnname);
+            })
+            .on("end", async function () {
+                console.log(results);
+                let createBulkUser =await tblUsers.bulkCreate(results)
+                res.status(200).send({message:`${createBulkUser.length} Users/Sales created successfully`,success:true,status:"Success"});
+            });
+        }
+        catch(e){
+            console.error(e);
+            next(apiError.BadRequest("Error in creating bulk user",e));
+        }
+    }
+}
 const updateUserbyId =async (req,res,next) =>{
 
     let reqbody = req.body;
@@ -131,5 +182,6 @@ module.exports = {
     createUserbyAdmin,
     updateUserbyId,
     getAllUsers,
-    deleteUserbyId
+    deleteUserbyId,
+    createBulkUser
 }
