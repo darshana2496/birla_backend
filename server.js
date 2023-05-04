@@ -6,17 +6,18 @@ const cors = require('cors');
 const dbconfig = require('./src/dbconfig/dbconfig')
 const userRoute = require('./src/routes/allusers_route')
 const adminRoute = require('./src/routes/admin_route')
-
+var fileupload = require("express-fileupload");
 const { API_PORT } = process.env;
 const port = process.env.PORT || API_PORT;
 const apiErrorHandler = require('./src/errors/errorHandler')
 const app = express(); // creates an express server
 
 app.use(cors({
-    origin: '*',
+    origin: '*', //We need to block the domains
     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
-  }));
+}));
 
+app.use(fileupload());
   
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}))
